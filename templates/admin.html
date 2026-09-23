@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>👑 GodX Admin Panel</h1>
+
+<p class="muted">
+    Hosting management dashboard
+</p>
+
+
+<div class="grid">
+
+    <div class="card">
+
+        <h2>
+            👤 {{ users }}
+        </h2>
+
+        <p>
+            Registered Users
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>
+            📦 {{ projects }}
+        </h2>
+
+        <p>
+            Total Projects
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <h2>
+        📋 Projects
+    </h2>
+
+
+    {% if rows %}
+
+        {% for project in rows %}
+
+            <div
+                style="
+                    padding:15px;
+                    margin:10px 0;
+                    background:#06111e;
+                    border-radius:10px;
+                    border:1px solid #155181;
+                "
+            >
+
+                <strong>
+                    📦 {{ project.name }}
+                </strong>
+
+                <br>
+
+                <span class="muted">
+                    User: {{ project.email }}
+                </span>
+
+                <br>
+
+                <span class="muted">
+                    Type: {{ project.kind }}
+                </span>
+
+                <br>
+
+                <span class="muted">
+                    Status: {{ project.status }}
+                </span>
+
+            </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p class="muted">
+            No projects yet.
+        </p>
+
+    {% endif %}
+
+</div>
+
+
+<a href="/">
+
+    <button>
+        ← Dashboard
+    </button>
+
+</a>
+
+{% endblock %}
