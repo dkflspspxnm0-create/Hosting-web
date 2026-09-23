@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card">
+
+    <h1>
+        📦 {{ project.name }}
+    </h1>
+
+
+    <p>
+
+        Type:
+
+        <strong>
+            {{ project.kind }}
+        </strong>
+
+    </p>
+
+
+    <p>
+
+        Status:
+
+        {% if project.status == "running" %}
+
+            <span class="badge">
+                🟢 Running
+            </span>
+
+        {% else %}
+
+            <span class="badge">
+                🔴 Stopped
+            </span>
+
+        {% endif %}
+
+    </p>
+
+
+    <hr>
+
+
+    <!-- START -->
+
+    <form
+        method="post"
+        action="/project/{{ project.id }}/start"
+        style="display:inline;"
+    >
+
+        <button type="submit">
+            ▶ Start
+        </button>
+
+    </form>
+
+
+    <!-- STOP -->
+
+    <form
+        method="post"
+        action="/project/{{ project.id }}/stop"
+        style="display:inline;"
+    >
+
+        <button
+            type="submit"
+            class="danger"
+        >
+            ⏹ Stop
+        </button>
+
+    </form>
+
+
+    <!-- DELETE -->
+
+    <form
+        method="post"
+        action="/project/{{ project.id }}/delete"
+        style="display:inline;"
+        onsubmit="return confirm('Delete this project?');"
+    >
+
+        <button
+            type="submit"
+            class="danger"
+        >
+            🗑 Delete
+        </button>
+
+    </form>
+
+
+    <h3>
+        🖥 Console / Logs
+    </h3>
+
+
+    <pre>{{ logs }}</pre>
+
+
+    <p class="muted">
+
+        Refresh this page to see the latest logs.
+
+    </p>
+
+
+    <a href="/">
+        ← Back to Dashboard
+    </a>
+
+</div>
+
+{% endblock %}
