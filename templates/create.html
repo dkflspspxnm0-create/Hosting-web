@@ -7,8 +7,7 @@
     <h1>➕ Create Hosting</h1>
 
     <p class="muted">
-        Upload your Python bot, Node.js app,
-        Java app or PHP project.
+        Upload your complete project and configure optional variables.
     </p>
 
 
@@ -16,6 +15,8 @@
         method="post"
         enctype="multipart/form-data"
     >
+
+        <!-- PROJECT NAME -->
 
         <label>
             Project Name
@@ -28,6 +29,8 @@
             required
         >
 
+
+        <!-- PROJECT TYPE -->
 
         <label>
             Project Type
@@ -58,16 +61,83 @@
         </select>
 
 
+        <!-- FILE UPLOAD -->
+
         <label>
-            Upload File
+            📁 Upload Project Files
         </label>
 
         <input
             type="file"
-            name="file"
+            name="files"
+            multiple
             required
         >
 
+        <p class="muted">
+            Select multiple files at once.
+        </p>
+
+        <p class="muted">
+            Example:
+            bot.py + requirements.txt + config.json
+        </p>
+
+
+        <!-- ENVIRONMENT VARIABLES -->
+
+        <h3>
+            🔐 Environment Variables
+        </h3>
+
+        <p class="muted">
+            Optional. You can add variables such as
+            BOT_TOKEN, API_ID, API_HASH, etc.
+        </p>
+
+
+        <div id="variables">
+
+            <div class="variable-row">
+
+                <input
+                    type="text"
+                    name="env_key"
+                    placeholder="Variable Name"
+                >
+
+                <input
+                    type="text"
+                    name="env_value"
+                    placeholder="Variable Value"
+                >
+
+                <button
+                    type="button"
+                    onclick="removeVariable(this)"
+                    class="danger"
+                >
+                    ✕
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <button
+            type="button"
+            onclick="addVariable()"
+        >
+            ➕ Add Variable
+        </button>
+
+
+        <br>
+        <br>
+
+
+        <!-- CREATE -->
 
         <button type="submit">
             🚀 Upload & Create
@@ -77,4 +147,29 @@
 
 </div>
 
-{% endblock %}
+
+<script>
+
+function addVariable() {
+
+    const container =
+        document.getElementById("variables");
+
+    const row =
+        document.createElement("div");
+
+    row.className =
+        "variable-row";
+
+    row.innerHTML = `
+
+        <input
+            type="text"
+            name="env_key"
+            placeholder="Variable Name"
+        >
+
+        <input
+            type="text"
+            name="env_value"
+            placeholder
