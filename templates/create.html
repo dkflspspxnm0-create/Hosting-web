@@ -4,28 +4,28 @@
 
 <div class="card">
 
-    <h1>➕ Create Hosting</h1>
+    <h1>🚀 Create Hosting</h1>
 
     <p class="muted">
-        Upload your complete project and configure optional variables.
+        Upload all files required for your project.
     </p>
 
 
     <form
-        method="post"
+        method="POST"
         enctype="multipart/form-data"
     >
 
         <!-- PROJECT NAME -->
 
         <label>
-            Project Name
+            📦 Project Name
         </label>
 
         <input
             type="text"
             name="name"
-            placeholder="My Python Bot"
+            placeholder="My Telegram Bot"
             required
         >
 
@@ -33,66 +33,130 @@
         <!-- PROJECT TYPE -->
 
         <label>
-            Project Type
+            ⚙️ Project Type
         </label>
 
-        <select name="kind" required>
+        <select
+            name="kind"
+            required
+        >
 
             <option value="Python">
-                Python (.py)
+                🐍 Python
             </option>
 
             <option value="Node.js">
-                Node.js (.js)
+                🟢 Node.js
             </option>
 
             <option value="Java">
-                Java (.jar)
+                ☕ Java
             </option>
 
             <option value="PHP">
-                PHP (.php)
+                🐘 PHP
             </option>
 
             <option value="Static">
-                Web / HTML
+                🌐 Web / HTML
             </option>
 
         </select>
 
 
-        <!-- FILE UPLOAD -->
+        <!-- PROJECT FILES -->
 
-        <label>
-            📁 Upload Project Files
-        </label>
-
-        <input
-            type="file"
-            name="files"
-            multiple
-            required
-        >
+        <h3>
+            📁 Project Files
+        </h3>
 
         <p class="muted">
-            Select multiple files at once.
+            Select all required files together.
         </p>
 
+
+        <div class="upload-box">
+
+            <div class="upload-icon">
+                📁
+            </div>
+
+            <div class="upload-title">
+                Choose Files
+            </div>
+
+            <div class="upload-subtitle">
+                Multiple files supported
+            </div>
+
+
+            <input
+                type="file"
+                name="files"
+                id="projectFiles"
+                multiple
+                required
+                onchange="showSelectedFiles()"
+            >
+
+        </div>
+
+
+        <!-- SELECTED FILES -->
+
+        <div
+            id="selectedFiles"
+            class="selected-files"
+        >
+        </div>
+
+
         <p class="muted">
+
             Example:
-            bot.py + requirements.txt + config.json
+
+            <b>bot.py</b> +
+            <b>requirements.txt</b> +
+            <b>Procfile</b> +
+            <b>config.json</b>
+
+        </p>
+
+
+        <p class="info">
+
+            ℹ️ requirements.txt is optional.
+
+        </p>
+
+
+        <p class="info">
+
+            ℹ️ Procfile is optional.
+
         </p>
 
 
         <!-- ENVIRONMENT VARIABLES -->
 
-        <h3>
-            🔐 Environment Variables
-        </h3>
+        <div class="env-header">
+
+            <h3>
+                🔐 Environment Variables
+            </h3>
+
+            <span>
+                OPTIONAL
+            </span>
+
+        </div>
+
 
         <p class="muted">
-            Optional. You can add variables such as
-            BOT_TOKEN, API_ID, API_HASH, etc.
+
+            Add secret or configuration values
+            required by your project.
+
         </p>
 
 
@@ -106,16 +170,18 @@
                     placeholder="Variable Name"
                 >
 
+
                 <input
                     type="text"
                     name="env_value"
                     placeholder="Variable Value"
                 >
 
+
                 <button
                     type="button"
+                    class="remove-btn"
                     onclick="removeVariable(this)"
-                    class="danger"
                 >
                     ✕
                 </button>
@@ -125,22 +191,35 @@
         </div>
 
 
+        <!-- ADD VARIABLE -->
+
         <button
             type="button"
+            class="add-variable-btn"
             onclick="addVariable()"
         >
             ➕ Add Variable
         </button>
 
 
-        <br>
-        <br>
+        <p class="example-text">
+
+            Example:
+
+            <code>BOT_TOKEN</code>
+            =
+            <code>xxxxxxxx</code>
+
+        </p>
 
 
         <!-- CREATE -->
 
-        <button type="submit">
-            🚀 Upload & Create
+        <button
+            type="submit"
+            class="create-btn"
+        >
+            🚀 Upload & Create Hosting
         </button>
 
     </form>
@@ -150,16 +229,87 @@
 
 <script>
 
+/* =========================================
+   SHOW SELECTED FILES
+========================================= */
+
+function showSelectedFiles() {
+
+    const input =
+        document.getElementById(
+            "projectFiles"
+        );
+
+    const container =
+        document.getElementById(
+            "selectedFiles"
+        );
+
+
+    container.innerHTML = "";
+
+
+    if (!input.files.length) {
+
+        return;
+
+    }
+
+
+    for (
+        let i = 0;
+        i < input.files.length;
+        i++
+    ) {
+
+        const file =
+            input.files[i];
+
+
+        const item =
+            document.createElement(
+                "div"
+            );
+
+
+        item.className =
+            "file-item";
+
+
+        item.textContent =
+            "📄 " + file.name;
+
+
+        container.appendChild(
+            item
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   ADD VARIABLE
+========================================= */
+
 function addVariable() {
 
     const container =
-        document.getElementById("variables");
+        document.getElementById(
+            "variables"
+        );
+
 
     const row =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     row.className =
         "variable-row";
+
 
     row.innerHTML = `
 
@@ -172,4 +322,279 @@ function addVariable() {
         <input
             type="text"
             name="env_value"
-            placeholder
+            placeholder="Variable Value"
+        >
+
+        <button
+            type="button"
+            class="remove-btn"
+            onclick="removeVariable(this)"
+        >
+            ✕
+        </button>
+
+    `;
+
+
+    container.appendChild(
+        row
+    );
+
+}
+
+
+/* =========================================
+   REMOVE VARIABLE
+========================================= */
+
+function removeVariable(button) {
+
+    button
+        .parentElement
+        .remove();
+
+}
+
+</script>
+
+
+<style>
+
+/* =========================================
+   FILE UPLOAD BOX
+========================================= */
+
+.upload-box {
+
+    margin-top: 12px;
+
+    padding: 28px 15px;
+
+    text-align: center;
+
+    background: #061321;
+
+    border: 2px dashed #1687ff;
+
+    border-radius: 15px;
+
+}
+
+
+.upload-icon {
+
+    font-size: 45px;
+
+}
+
+
+.upload-title {
+
+    margin-top: 8px;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    color: #70c5ff;
+
+}
+
+
+.upload-subtitle {
+
+    margin: 5px 0 15px;
+
+    color: #91a9be;
+
+    font-size: 13px;
+
+}
+
+
+.upload-box input {
+
+    width: 100%;
+
+    margin: 0;
+
+}
+
+
+/* =========================================
+   SELECTED FILES
+========================================= */
+
+.selected-files {
+
+    margin-top: 10px;
+
+}
+
+
+.file-item {
+
+    padding: 10px 12px;
+
+    margin: 7px 0;
+
+    background: #061321;
+
+    border: 1px solid #155181;
+
+    border-radius: 9px;
+
+    word-break: break-all;
+
+}
+
+
+/* =========================================
+   INFORMATION
+========================================= */
+
+.info {
+
+    color: #70c5ff;
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================
+   VARIABLES HEADER
+========================================= */
+
+.env-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-top: 28px;
+
+}
+
+
+.env-header span {
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    background: #12476f;
+
+    color: #70c5ff;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+}
+
+
+/* =========================================
+   VARIABLE ROW
+========================================= */
+
+.variable-row {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 9px;
+
+}
+
+
+.variable-row input {
+
+    flex: 1;
+
+    margin: 0;
+
+}
+
+
+.remove-btn {
+
+    width: 42px;
+
+    height: 42px;
+
+    padding: 0;
+
+    margin: 0;
+
+    flex-shrink: 0;
+
+    background: #c7374e;
+
+}
+
+
+.add-variable-btn {
+
+    margin-top: 5px;
+
+    background: #12476f;
+
+}
+
+
+/* =========================================
+   EXAMPLE
+========================================= */
+
+.example-text {
+
+    color: #91a9be;
+
+    font-size: 13px;
+
+}
+
+
+.example-text code {
+
+    padding: 3px 6px;
+
+    border-radius: 5px;
+
+    background: #02060b;
+
+    color: #70c5ff;
+
+}
+
+
+/* =========================================
+   CREATE BUTTON
+========================================= */
+
+.create-btn {
+
+    width: 100%;
+
+    margin-top: 22px;
+
+    padding: 14px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+}
+
+</style>
+
+
+{% endblock %}
