@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card">
+
+    <h1>
+        ⚡ GodX Hosting
+    </h1>
+
+    {% if title %}
+
+        <h2>
+            {{ title }}
+        </h2>
+
+    {% endif %}
+
+
+    {% if message %}
+
+        <p>
+            {{ message }}
+        </p>
+
+    {% endif %}
+
+
+    <a href="/">
+
+        <button>
+            🏠 Go to Dashboard
+        </button>
+
+    </a>
+
+</div>
+
+{% endblock %}
