@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <title>GodX Hosting</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #050c16;
+            color: #eaf4ff;
+            font-family: Arial, sans-serif;
+        }
+
+        nav {
+            padding: 18px 7%;
+            background: #081a2d;
+            border-bottom: 1px solid #155181;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        main {
+            max-width: 1050px;
+            margin: 30px auto;
+            padding: 0 18px;
+        }
+
+        .card {
+            background: #091a2d;
+            border: 1px solid #155181;
+            border-radius: 16px;
+            padding: 22px;
+            margin: 16px 0;
+
+            box-shadow: 0 0 35px #1687ff15;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(260px, 1fr)
+                );
+
+            gap: 16px;
+        }
+
+        input,
+        select {
+            width: 100%;
+
+            padding: 12px;
+
+            margin: 8px 0 14px;
+
+            background: #040b13;
+
+            color: #ffffff;
+
+            border: 1px solid #245b85;
+
+            border-radius: 9px;
+        }
+
+        button {
+            padding: 11px 16px;
+
+            border: 0;
+
+            border-radius: 9px;
+
+            background: #1687ff;
+
+            color: #ffffff;
+
+            cursor: pointer;
+
+            margin: 4px;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .danger {
+            background: #c7374e;
+        }
+
+        a {
+            color: #70c5ff;
+
+            text-decoration: none;
+        }
+
+        .muted {
+            color: #91a9be;
+        }
+
+        .logo {
+            font-weight: 800;
+
+            letter-spacing: 1px;
+        }
+
+        .badge {
+            padding: 5px 10px;
+
+            border-radius: 20px;
+
+            background: #12476f;
+        }
+
+        pre {
+            white-space: pre-wrap;
+
+            background: #02060b;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            min-height: 130px;
+
+            overflow: auto;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <nav>
+
+        <div class="logo">
+            ⚡ GODX HOSTING
+        </div>
+
+
+        <div>
+
+            {% if session.get('user_id') or session.get('admin') %}
+
+                <a href="/">
+                    Dashboard
+                </a>
+
+                ·
+
+                <a href="/logout">
+                    Logout
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </nav>
+
+
+    <main>
+
+        {% block content %}
+
+        {% endblock %}
+
+    </main>
+
+</body>
+
+</html>
