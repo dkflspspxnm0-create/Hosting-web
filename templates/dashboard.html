@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>GodX Hosting Dashboard</h1>
+
+<p class="muted">
+    Free Plan · Maximum 2 Projects
+</p>
+
+<a href="/create">
+    <button>
+        ➕ Create Hosting
+    </button>
+</a>
+
+
+<div class="grid">
+
+    {% for project in projects %}
+
+    <div class="card">
+
+        <h2>
+            📦 {{ project.name }}
+        </h2>
+
+
+        <p>
+            Type:
+            <strong>
+                {{ project.kind }}
+            </strong>
+        </p>
+
+
+        <p>
+
+            Status:
+
+            {% if project.status == "running" %}
+
+                <span class="badge">
+                    🟢 Running
+                </span>
+
+            {% else %}
+
+                <span class="badge">
+                    🔴 Stopped
+                </span>
+
+            {% endif %}
+
+        </p>
+
+
+        <a href="/project/{{ project.id }}">
+
+            <button>
+                Manage Project →
+            </button>
+
+        </a>
+
+    </div>
+
+    {% else %}
+
+    <div class="card">
+
+        <h2>
+            No Projects Yet
+        </h2>
+
+        <p class="muted">
+            Create your first hosting project.
+        </p>
+
+        <a href="/create">
+
+            <button>
+                ➕ Create Project
+            </button>
+
+        </a>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}
